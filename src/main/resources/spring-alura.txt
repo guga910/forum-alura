@@ -1,0 +1,16 @@
+<!--  Nao precisar ficar offlinepara subir as atualizações -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		- A ideia de usar o padrão VO ou Dto é para que a estrutura de nosso objeto nao seja totalmente
+		esposta como resposta de nossos metodos, quando usamos esse padrao, podemos escolher
+		os dados/ atributos que serão expostos.
+		ob: classes nao devem ser expostas, e sim um ayributo primitivo em seu lugar
+		
+		- 	@Enumerated(EnumType.STRING) sobre as classes ENUM par que o banco de dados
+		 os salvem como valores string e nao como int.
+		
