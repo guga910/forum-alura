@@ -13,6 +13,9 @@ public class Curso {
 	private Long id;
 	private String nome;
 	private String categoria;
+	public Curso() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Curso(String nome, String categoria) {
 		this.nome = nome;
