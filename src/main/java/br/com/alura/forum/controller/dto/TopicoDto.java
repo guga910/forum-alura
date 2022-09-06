@@ -1,8 +1,8 @@
 package br.com.alura.forum.controller.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import br.com.alura.forum.modelo.Topico;
 
@@ -34,7 +34,8 @@ public class TopicoDto {
 		return dataCriacao;
 	}
 
-	public static List<TopicoDto> converter(List<Topico> topicos) {
+//	public static List<TopicoDto> converter(List<Topico> topicos) {
+	public static Page<TopicoDto> converter(Page<Topico> topicos) {
 		// TODO Auto-generated method stub
 //		List<TopicoDto> tdos= new ArrayList<TopicoDto>();
 //		topicos.forEach(t->{
@@ -42,7 +43,8 @@ public class TopicoDto {
 //			tdos.add(dto);
 //		});
 //		return tdos;
-		return topicos.stream().map(TopicoDto::new).collect(Collectors.toList());
+//		return topicos.stream().map(TopicoDto::new).collect(Collectors.toList());
+		return topicos.map(TopicoDto::new);
 		/* ele vai receber uma lista de topicos, vai passar pelo contrutor do topicoDto
 		 * que recebe um topico e cria um topicoDto e vai esta transformando isso em uma List.
 		 */

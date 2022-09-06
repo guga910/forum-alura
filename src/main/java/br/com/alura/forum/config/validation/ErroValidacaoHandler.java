@@ -25,6 +25,7 @@ public class ErroValidacaoHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	// sempre que houver essa exception, esse metodo será chamado
 	// essa anotação declara qual metodo sera chamado quando houver uma exception.
+	
 	public List<ErroFormularioDto> handle(MethodArgumentNotValidException exception) {
 		
 		List<ErroFormularioDto> dtos= new ArrayList<ErroFormularioDto>();

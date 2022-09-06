@@ -1,0 +1,5 @@
+1- adicionar aos parametros do metodo @RequestParam int pag,@RequestParam int qnt,
+ requestPagarm torna a presenca do parametro obrigatirio na requisição,
+  caso nao deseje que seja obrigatorio, adicionar @RequestParam(required = false)
+  
+  2-	Pageable pagicacao= PageRequest.of(pag, qnt);

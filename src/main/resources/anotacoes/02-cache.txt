@@ -1,0 +1,37 @@
+imeira vez que o metdo é chamado, o spring executa o codigo linha por linha ate encontar
+o resultado, salvando este em "cache", nas proximas vezes em que o metodo for chamado
+o resultado salvo sera apresentado.
+
+		<!-- cache -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		
+	1- na classe aplication adicionar a anotação: @EnableCaching que habilitara uso do cache 
+	2- sobre o metodo escolhido inserir a anotação: @Cacheable(value = "nome referencia")
+Para indicar ao Spring o nome do cache associado a um determinado método
+
+	3- na classe properties adicionar os comandos:
+spring.jpa.properties.hibernate.show_sql=true 
+#manda o hibernate imprimir os comando sql que ele dispara sempre que acessa o banco de dados
+
+spring.jpa.properties.hibernate.format_sql=true
+#formata a saida dos logs 
+
+	4- Configurar o metodos para quando ele for chamado limpar o cache:
+adicionar a anotação no metodo que limpara o cache e no value, a chave identificadora do metodo
+@CacheEvict(value = "listaDeTopicos", allEntries = true)
+	//Quando esse método for chamado, quero que o Spring limpe aquele cache que chamei de listaDeTopicos
+	// limpar todos os registros (allEntries)?  true
+	Ela deveria ser utilizada nos métodos que alteraram os registros armazenados em cache pela API
+	Ex: cadastrat, atualizar, deletar
+	
+	
+	- Para utilizar o módulo de cache do Spring Boot, devemos adicioná-lo como dependência do projeto no arquivo pom.xml;
+	- Para habilitar o uso de caches na aplicação, devemos adicionar a anotação @EnableCaching na classe ForumApplication;
+	- Para que o Spring guarde o retorno de um método no cache, devemos anotá-lo com @Cacheable;
+	- Para o Spring invalidar algum cache após um determinado método ser chamado, devemos anotá-lo com @CacheEvict;
+	- Devemos utilizar cache apenas para as informações que nunca ou raramente são atualizadas no banco de dados.
+	
+	

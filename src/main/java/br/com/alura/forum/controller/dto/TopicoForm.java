@@ -47,6 +47,7 @@ public class TopicoForm {
 	public void setNomeCurso(String nomeCurso) {
 		this.nomeCurso = nomeCurso;
 	}
+	
 	public Topico converter(CursoRepository cursoRepository) {
 		Curso curso= cursoRepository.findByNome(nomeCurso);
 		

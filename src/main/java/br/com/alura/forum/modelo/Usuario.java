@@ -1,19 +1,36 @@
 package br.com.alura.forum.modelo;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import br.com.alura.forum.config.security.Perfil;
 
 @Entity
-public class Usuario {
-
+public class Usuario implements UserDetails {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String email;
 	private String senha;
+	@ManyToMany(fetch = FetchType.EAGER) 	
+	//fetch = FetchType.EAGER:  quando carregaro usuario a lista de erfil vem junto
+	//O usuario pode ter varios perfis, e um perfil pode ter varios usuarios.
+	private List<Perfil> perfis = new ArrayList<>();
+	
 
 	@Override
 	public int hashCode() {
@@ -70,6 +87,49 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		/* qual atributo contem a coleção com os perfis deste usuario?
+		 * recisa ter uma classe também que representa o perfil do usuário,
+		 *  que é o perfil relacionado com as permissões de acesso dele.
+		 *   Por isso ele tem mais esse método, que é para devolver qual atributo contém 
+		 *   a coleção com os perfis desse usuário. Então, neste método, vou escrever
+		    returnu this.perfis */
+		
+		
+		return this.perfis;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() { // a conta NAO esta expirada? isso, ela NAO esta... true
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() { // a conta NAO esta bloqueada? verdade, ela NAO esta!
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {// suas credenciais NAO espiraram? true, ela NAO expirou, ainda ta valendo
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 }
