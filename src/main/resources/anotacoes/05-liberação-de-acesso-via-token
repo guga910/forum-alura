@@ -1,0 +1,30 @@
+Usar o token gerado para liberar acesso a outras requisições:
+
+	- No postma, em headers:
+	 key: autorizations 
+	 value: tipo token (ex: Baeren uigfoywrfwuqhpiurhflquhrpiuwhfoqwnpeihfihiuytrseglhg)
+	 
+---------------------------------------------------------------------------------------
+No pacote security adicionar classe AutenticacaoViaTokenFilter extends OncePerRequestFilter, 
+que é um filtro do Spring chamado uma única vez a cada requisição.
+
+tava com sono cara, foi mau...
+tenta seguur o passo a passo da classe AutenticacaoViaTokenFilter
+ele foi criando os metodos na medida em que apareceia a nescessidade...
+alves, se tu for segundo os codigos de cima a baixo de certo... 
+e os atributos, so traz ele na medida em que for precisando, por que foi assim que a gente fez.
+
+aula: autenticando o cliente via spring security... boa sorte...xD
+
+teste:
+
+lancar a requisição auth para criar um novo perfil, e tentar chamar os metodos que estao 
+bloqueados para quem nao tem perfil autenticado.
+
+-------------------------- RESUMO -------------------------------------
+
+	- Para enviar o token JWT na requisição, é necessário adicionar o cabeçalho Authorization, passando como valor Bearer token;
+	- Para criar um filtro no Spring, devemos criar uma classe que herda da classe OncePerRequestFilter;
+	- Para recuperar o token JWT da requisição no filter, devemos chamar o método request.getHeader("Authorization");
+	- Para habilitar o filtro no Spring Security, devemos chamar o método and().addFilterBefore(new AutenticacaoViaTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+	- Para indicar ao Spring Security que o cliente está autenticado, devemos utilizar a classe SecurityContextHolder, chamando o método SecurityContextHolder.getContext().setAuthentication(authentication).

@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import br.com.alura.forum.repository.UsuarioRepository;
 
 @EnableWebSecurity // habilita o modulo de segiranca
 @Configurable // para o spring ler as configurações que estap dentro desta classe
@@ -19,6 +22,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private AutenticacaoService autenticacaoService;
+	
+	@Autowired
+	private TokenService tokenService= new TokenService();
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
 	
 @Override
 @Bean
@@ -52,11 +61,13 @@ protected AuthenticationManager authenticationManager() throws Exception {
 //		.and().formLogin();// diz ao spring para gerar um formulario de identifição"tela de login"
 	.and().csrf().disable() // desabilitar a proteção de ataque haker via csrf
 	.sessionManagement() // para dizer que nao queremos usar a ciração de seção
-	.sessionCreationPolicy(SessionCreationPolicy.STATELESS); 
+	.sessionCreationPolicy(SessionCreationPolicy.STATELESS) 
 //		Com isso, aviso para o Spring security que no nosso projeto,
 //		quando eu fizer autenticação, não é para criar sessão, porque vamos usar token
+		.and().addFilterBefore( new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),	UsernamePasswordAuthenticationFilter.class);
+		// antes de fazer as autenticações, o spring deve rodar o nosso token
 	}
-
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// configuração de recursos staticos, requisição para arquivos cc, imagens,

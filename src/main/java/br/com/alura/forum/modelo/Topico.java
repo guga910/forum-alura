@@ -29,8 +29,10 @@ public class Topico {
 	private Usuario autor;
 	@ManyToOne
 	private Curso curso;
+	
 	@OneToMany(mappedBy = "topico")
 	private List<Resposta> respostas = new ArrayList<>();
+	
 	public Topico() {
 		// TODO Auto-generated constructor stub
 	}
