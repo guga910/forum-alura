@@ -4,10 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
+@Table(name= "perfis")
 public class Perfil implements GrantedAuthority { // a anotação diz que essa é a classe que representa o perfil de
 													// acesso
 	private static final long serialVersionUID = 1L;

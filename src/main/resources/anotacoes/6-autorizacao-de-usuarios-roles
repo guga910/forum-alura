@@ -1,0 +1,2 @@
+fazer uma requisição tipo post body para o endpoit /auth com os dados do usuario e a senha
+o usuario vai ter acesso a quuilo que lhe foi liberado de acordo com seu perfil (usuario ou moderador);

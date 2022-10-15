@@ -13,7 +13,10 @@ public class ForumApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ForumApplication.class, args);
 		
-		
+//		https://cursos.alura.com.br/course/spring-boot-seguranca-cache-monitoramento/task/55842
+//			
+//			assite ai pra tentar logar direito..ai. 
+//			:/
 		System.out.println("\nFoi?");
 	}
 

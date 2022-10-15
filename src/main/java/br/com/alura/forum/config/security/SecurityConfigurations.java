@@ -35,7 +35,7 @@ protected AuthenticationManager authenticationManager() throws Exception {
 	return super.authenticationManager();
 }
 
-	@Override
+	@Override //Configuracoes de autenticacao
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// serve para configurar a parte de autenticação. Ex: controle de acesso,
 		// login...
@@ -50,8 +50,9 @@ protected AuthenticationManager authenticationManager() throws Exception {
 		
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET,  "/topicos").permitAll() // o metodo antMatchers diz quais urls serao permitidas e quais serão bloqueadas
-		.antMatchers(HttpMethod.GET,  "/topicos/*").permitAll()
+		.antMatchers(HttpMethod.GET,  "/topicos/*").permitAll()//permitAll() quer dizer que todos os usuarios tem permição
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/topicos*").hasRole("MODERADOR")// hasRole define O PERFIL DE quem pode usar esa regra
 		/* o acesso esta liberado para chamadas tipo get com as requisições 
 		 * "/topicos" e "/topicos/algumId"
 		 */
@@ -68,10 +69,12 @@ protected AuthenticationManager authenticationManager() throws Exception {
 		// antes de fazer as autenticações, o spring deve rodar o nosso token
 	}
 	
-	@Override
+	@Override //Configuracoes de recursos estaticos(js, css, imagens, etc.)
 	public void configure(WebSecurity web) throws Exception {
 		// configuração de recursos staticos, requisição para arquivos cc, imagens,
 		// javascript
+		web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+		
 
 	}
 //	public static void main(String[] args) {
